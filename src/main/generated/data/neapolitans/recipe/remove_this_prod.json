@@ -1,0 +1,11 @@
+{
+  "type": "neapolitans:neapolitan_press",
+  "sprinkles": "minecraft:dirt",
+  "first_dough": "neapolitans:neapolitan_dough",
+  "cream": "minecraft:copper_ingot",
+  "second_dough": "neapolitans:neapolitan_dough",
+  "result": {
+    "id": "minecraft:diamond",
+    "count": 32
+  }
+}

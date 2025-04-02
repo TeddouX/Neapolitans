@@ -1,0 +1,8 @@
+{
+  "type": "neapolitans:mortar",
+  "first": "minecraft:cocoa_beans",
+  "result": {
+    "id": "neapolitans:cocoa_powder",
+    "count": 2
+  }
+}

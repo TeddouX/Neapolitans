@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "minecraft:milk_bucket",
+    "neapolitans:cocoa_powder"
+  ],
+  "result": {
+    "count": 1,
+    "id": "neapolitans:chocolate"
+  }
+}

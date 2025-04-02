@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "D": "neapolitans:raw_dough",
+    "s": "minecraft:sugar"
+  },
+  "pattern": [
+    "sDs"
+  ],
+  "result": {
+    "count": 1,
+    "id": "neapolitans:neapolitan_dough"
+  }
+}
