@@ -1,28 +1,37 @@
 package teddyx.neapolitans.blocks.entity;
 
+import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventories;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.screen.ScreenHandler;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.text.Text;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoBlockEntity;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.animation.*;
 import software.bernie.geckolib.util.GeckoLibUtil;
 import teddyx.neapolitans.items.ModItems;
+import teddyx.neapolitans.network.BlockPosPayload;
 import teddyx.neapolitans.recipes.NeapolitanPressRecipe;
 import teddyx.neapolitans.recipes.NeapolitanPressRecipeInput;
+import teddyx.neapolitans.screen.NeapolitanPressScreenHandler;
 
 import java.util.Optional;
 
-public class NeapolitanPressBlockEntity extends BlockEntity implements GeoBlockEntity, ImplementedInventory {
+public class NeapolitanPressBlockEntity extends BlockEntity implements GeoBlockEntity, ImplementedInventory, ExtendedScreenHandlerFactory<BlockPosPayload> {
     public static final int INVENTORY_SIZE = 5;
 
     private static final int PRESS_ANIM_DURATION = (int) 3.5 * 20 + 5; // 3.5 seconds duration (5 ticks margin)
@@ -152,5 +161,22 @@ public class NeapolitanPressBlockEntity extends BlockEntity implements GeoBlockE
     @Override
     public DefaultedList<ItemStack> getItems() {
         return this.items;
+    }
+
+    @Override
+    public BlockPosPayload getScreenOpeningData(ServerPlayerEntity serverPlayerEntity) {
+        return new BlockPosPayload(this.getPos());
+    }
+
+    @Override
+    public Text getDisplayName() {
+        return Text.literal("Hello");
+    }
+
+    @Override
+    public @Nullable ScreenHandler createMenu(int syncId, PlayerInventory playerInventory, PlayerEntity player) {
+        this.markDirty();
+
+        return new NeapolitanPressScreenHandler(syncId, playerInventory, this);
     }
 }
