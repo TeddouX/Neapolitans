@@ -33,6 +33,7 @@ import java.util.Optional;
 
 public class NeapolitanPressBlockEntity extends BlockEntity implements GeoBlockEntity, ImplementedInventory, ExtendedScreenHandlerFactory<BlockPosPayload> {
     public static final int INVENTORY_SIZE = 5;
+    public static final int OUTPUT_SLOT_IDX = INVENTORY_SIZE - 1;
 
     private static final int PRESS_ANIM_DURATION = (int) 3.5 * 20 + 5; // 3.5 seconds duration (5 ticks margin)
     private static final int CRAFTING_DURATION = PRESS_ANIM_DURATION - 20;
@@ -104,13 +105,11 @@ public class NeapolitanPressBlockEntity extends BlockEntity implements GeoBlockE
                 .getFirstMatch(NeapolitanPressRecipe.Type.INSTANCE,
                         new NeapolitanPressRecipeInput(getStack(0), getStack(1), getStack(2), getStack(3)), getWorld());
 
-        removeStack(0, 1);
-        removeStack(1, 1);
-        removeStack(2, 1);
-        removeStack(3, 1);
+        for (int i = 0; i < OUTPUT_SLOT_IDX; i++)
+            removeStack(i, 1);
 
         match.ifPresent(recipe ->
-                addToSlot(4, recipe.value().result().copy()));
+                addToSlot(OUTPUT_SLOT_IDX, recipe.value().result().copy()));
     }
 
     public boolean hasRecipe() {
@@ -121,7 +120,7 @@ public class NeapolitanPressBlockEntity extends BlockEntity implements GeoBlockE
                 .getFirstMatch(NeapolitanPressRecipe.Type.INSTANCE,
                         new NeapolitanPressRecipeInput(getStack(0), getStack(1), getStack(2), getStack(3)), getWorld());
 
-        return match.isPresent() && canInsert(match.get().value().result(), 4);
+        return match.isPresent() && canInsert(match.get().value().result(), OUTPUT_SLOT_IDX);
     }
 
     public void startPressAnimation() {

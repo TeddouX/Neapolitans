@@ -1,6 +1,8 @@
 package teddyx.neapolitans;
 
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.event.Event;
+import net.fabricmc.fabric.api.event.player.AttackBlockCallback;
 import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
